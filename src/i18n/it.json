@@ -1,0 +1,68 @@
+{
+  "nav": {
+    "about": "Chi Sono",
+    "projects": "Progetti",
+    "skills": "Competenze",
+    "experience": "Esperienze",
+    "contact": "Contatti"
+  },
+  "hero": {
+    "greeting": "Ciao, sono",
+    "name": "Claudio Ciccarone",
+    "role": "Back-end Developer",
+    "typingItems": ["software", "intelligenza artificiale", "videogiochi", "hardware PC"],
+    "cta": "Contattami"
+  },
+  "about": {
+    "title": "Chi Sono",
+    "bio": "Nato a Bari nel 1998, sono un Back-end Developer presso DXC Technology. Appassionato di software, programmazione, intelligenza artificiale, videogiochi e hardware PC.",
+    "location": "Bari, Italia"
+  },
+  "projects": {
+    "title": "Progetti",
+    "filterAll": "Tutti",
+    "stars": "stelle",
+    "viewRepo": "Vedi su GitHub",
+    "loading": "Caricamento progetti...",
+    "error": "Impossibile caricare i progetti. Riprova più tardi."
+  },
+  "skills": {
+    "title": "Competenze",
+    "categories": {
+      "backend": "Back-end",
+      "database": "Database",
+      "messaging": "Messaging",
+      "tools": "Strumenti"
+    }
+  },
+  "experience": {
+    "title": "Esperienze",
+    "entries": [
+      {
+        "role": "Back-end Developer",
+        "company": "DXC Technology",
+        "period": "Presente",
+        "description": "Sviluppo di servizi back-end con Java Spring Boot, integrazione con database Oracle e PostgreSQL, gestione code messaggi con Apache Kafka e RabbitMQ."
+      },
+      {
+        "role": "Freelancer",
+        "company": "Freelance",
+        "period": "Precedente",
+        "description": "Sviluppo su fork di DeepFaceLab, sperimentazione con tecnologie di deep learning e computer vision."
+      }
+    ]
+  },
+  "contact": {
+    "title": "Contatti",
+    "subtitle": "Vuoi collaborare o semplicemente fare due chiacchiere? Scrivimi!",
+    "email": "Email",
+    "namePlaceholder": "Il tuo nome",
+    "emailPlaceholder": "La tua email",
+    "messagePlaceholder": "Il tuo messaggio",
+    "send": "Invia Messaggio"
+  },
+  "footer": {
+    "madeWith": "Fatto con",
+    "by": "da Claudio Ciccarone"
+  }
+}

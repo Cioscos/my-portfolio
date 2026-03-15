@@ -1,0 +1,68 @@
+{
+  "nav": {
+    "about": "About",
+    "projects": "Projects",
+    "skills": "Skills",
+    "experience": "Experience",
+    "contact": "Contact"
+  },
+  "hero": {
+    "greeting": "Hi, I'm",
+    "name": "Claudio Ciccarone",
+    "role": "Back-end Developer",
+    "typingItems": ["software", "artificial intelligence", "videogames", "PC hardware"],
+    "cta": "Get in Touch"
+  },
+  "about": {
+    "title": "About Me",
+    "bio": "Born in Bari in 1998, I'm a Back-end Developer at DXC Technology. Passionate about software, programming, artificial intelligence, videogames and PC hardware.",
+    "location": "Bari, Italy"
+  },
+  "projects": {
+    "title": "Projects",
+    "filterAll": "All",
+    "stars": "stars",
+    "viewRepo": "View on GitHub",
+    "loading": "Loading projects...",
+    "error": "Unable to load projects. Please try again later."
+  },
+  "skills": {
+    "title": "Skills",
+    "categories": {
+      "backend": "Back-end",
+      "database": "Database",
+      "messaging": "Messaging",
+      "tools": "Tools"
+    }
+  },
+  "experience": {
+    "title": "Experience",
+    "entries": [
+      {
+        "role": "Back-end Developer",
+        "company": "DXC Technology",
+        "period": "Present",
+        "description": "Developing back-end services with Java Spring Boot, integration with Oracle and PostgreSQL databases, message queue management with Apache Kafka and RabbitMQ."
+      },
+      {
+        "role": "Freelancer",
+        "company": "Freelance",
+        "period": "Previous",
+        "description": "Development on DeepFaceLab fork, experimentation with deep learning and computer vision technologies."
+      }
+    ]
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Want to collaborate or just have a chat? Drop me a message!",
+    "email": "Email",
+    "namePlaceholder": "Your name",
+    "emailPlaceholder": "Your email",
+    "messagePlaceholder": "Your message",
+    "send": "Send Message"
+  },
+  "footer": {
+    "madeWith": "Made with",
+    "by": "by Claudio Ciccarone"
+  }
+}
