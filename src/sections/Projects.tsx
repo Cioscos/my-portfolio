@@ -21,7 +21,7 @@ const cardVariants = {
 export default function Projects() {
   const { t } = useTranslation();
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.1 });
+  const isInView = useInView(ref, { once: true, margin: '-100px' });
   const { repos, loading, error } = useGitHubRepos('Cioscos');
   const [filter, setFilter] = useState<string | null>(null);
 
