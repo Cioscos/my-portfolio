@@ -20,8 +20,8 @@ const cardVariants = {
 
 export default function Projects() {
   const { t } = useTranslation();
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const sentinelRef = useRef(null);
+  const isInView = useInView(sentinelRef, { once: true });
   const { repos, loading, error } = useGitHubRepos('Cioscos');
   const [filter, setFilter] = useState<string | null>(null);
 
@@ -30,7 +30,8 @@ export default function Projects() {
 
   return (
     <section id="projects" className="px-6 py-24">
-      <div ref={ref} className="mx-auto max-w-6xl">
+      <div ref={sentinelRef} className="h-0 w-0" aria-hidden />
+      <div className="mx-auto max-w-6xl">
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
