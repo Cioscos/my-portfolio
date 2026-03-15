@@ -19,10 +19,10 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 z-50 w-full transition-all duration-300 ${
+      className={`fixed top-0 z-50 w-full border-b transition-all duration-300 ${
         scrolled
-          ? 'border-b border-white/10 bg-bg-glass backdrop-blur-xl'
-          : 'bg-transparent'
+          ? 'border-white/10 bg-bg-glass backdrop-blur-xl'
+          : 'border-transparent bg-transparent'
       }`}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
