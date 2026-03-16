@@ -17,6 +17,14 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setMenuOpen(false);
+    };
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, []);
+
   return (
     <nav
       className={`fixed top-0 z-50 w-full border-b transition-all duration-300 ${
@@ -57,6 +65,8 @@ export default function Navbar() {
           className="text-2xl text-text-primary md:hidden"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
+          aria-expanded={menuOpen}
+          aria-controls="mobile-menu"
         >
           {menuOpen ? <HiX /> : <HiMenuAlt3 />}
         </button>
@@ -64,7 +74,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="flex flex-col items-center gap-6 border-t border-white/10 bg-bg-glass px-6 py-8 backdrop-blur-xl md:hidden">
+        <div id="mobile-menu" className="flex flex-col items-center gap-6 border-t border-white/10 bg-bg-glass px-6 py-8 backdrop-blur-xl md:hidden">
           {NAV_ITEMS.map((item) => (
             <Link
               key={item}

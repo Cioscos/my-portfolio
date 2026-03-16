@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'motion/react';
 import { Link } from 'react-scroll';
+import { HiDownload } from 'react-icons/hi';
 
 export default function Hero() {
   const { t } = useTranslation();
@@ -82,6 +83,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.8 }}
+          className="flex flex-wrap items-center justify-center gap-4"
         >
           <Link
             to="contact"
@@ -91,6 +93,14 @@ export default function Hero() {
           >
             {t('hero.cta')}
           </Link>
+          <a
+            href="/my-portfolio/cv/Claudio_Ciccarone_CV.pdf"
+            download
+            className="inline-flex items-center gap-2 rounded-xl border border-white/20 px-8 py-3 font-heading font-semibold text-text-secondary transition-all hover:border-neon-cyan/50 hover:text-neon-cyan hover:shadow-[0_0_20px_rgba(0,240,255,0.15)]"
+          >
+            <HiDownload />
+            {t('hero.downloadCv')}
+          </a>
         </motion.div>
       </div>
     </section>

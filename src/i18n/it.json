@@ -11,12 +11,21 @@
     "name": "Claudio Ciccarone",
     "role": "Back-end Developer",
     "typingItems": ["software", "intelligenza artificiale", "videogiochi", "hardware PC"],
-    "cta": "Contattami"
+    "cta": "Contattami",
+    "downloadCv": "Scarica CV"
   },
   "about": {
     "title": "Chi Sono",
-    "bio": "Nato a Bari nel 1998, sono un Back-end Developer presso DXC Technology. Appassionato di software, programmazione, intelligenza artificiale, videogiochi e hardware PC.",
-    "location": "Bari, Italia"
+    "bio": "Nato a Bari nel 1998, sono un Back-end Developer presso DXC Technology con la passione per il codice ben scritto e le architetture scalabili.\n\nLavoro quotidianamente con Java Spring Boot per costruire servizi back-end robusti, integrandoli con database relazionali come Oracle e PostgreSQL e sistemi di messaggistica event-driven come Apache Kafka e RabbitMQ.\n\nNel tempo libero esploro il mondo dell'intelligenza artificiale, sperimento con Python e FastAPI, e mi tengo aggiornato sulle ultime novità in ambito hardware PC e videogiochi.",
+    "location": "Bari, Italia",
+    "highlights": [
+      "Java Spring Boot",
+      "Event-driven con Kafka",
+      "Oracle & PostgreSQL",
+      "Python & FastAPI",
+      "REST API Design",
+      "Git & CI/CD"
+    ]
   },
   "projects": {
     "title": "Progetti",
@@ -59,7 +68,9 @@
     "namePlaceholder": "Il tuo nome",
     "emailPlaceholder": "La tua email",
     "messagePlaceholder": "Il tuo messaggio",
-    "send": "Invia Messaggio"
+    "send": "Invia Messaggio",
+    "success": "Messaggio inviato con successo! Ti risponderò al più presto.",
+    "error": "Si è verificato un errore. Riprova o contattami direttamente via email."
   },
   "footer": {
     "madeWith": "Fatto con",

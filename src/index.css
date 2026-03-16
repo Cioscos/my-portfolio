@@ -63,6 +63,12 @@ pre {
   background: var(--color-neon-magenta);
 }
 
+/* ── Focus ── */
+*:focus-visible {
+  outline: 2px solid var(--color-neon-cyan);
+  outline-offset: 2px;
+}
+
 /* ── Selection ── */
 ::selection {
   background: rgba(0, 240, 255, 0.3);

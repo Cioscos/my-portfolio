@@ -1,7 +1,10 @@
-import { useRef } from 'react';
+import { useRef, useState, type FormEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion, useInView } from 'motion/react';
 import { FaEnvelope, FaLinkedin, FaGithub } from 'react-icons/fa';
+import GlassPanel from '../components/GlassPanel';
+
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mreyyvkr';
 
 const socials = [
   {
@@ -21,10 +24,35 @@ const socials = [
   },
 ];
 
+type FormStatus = 'idle' | 'loading' | 'success' | 'error';
+
 export default function Contact() {
   const { t } = useTranslation();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.3 });
+  const [status, setStatus] = useState<FormStatus>('idle');
+
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setStatus('loading');
+
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        body: new FormData(e.currentTarget),
+        headers: { Accept: 'application/json' },
+      });
+
+      if (res.ok) {
+        setStatus('success');
+        (e.target as HTMLFormElement).reset();
+      } else {
+        setStatus('error');
+      }
+    } catch {
+      setStatus('error');
+    }
+  }
 
   return (
     <section id="contact" className="bg-bg-secondary px-6 py-24">
@@ -68,6 +96,74 @@ export default function Contact() {
             </motion.a>
           ))}
         </motion.div>
+
+        <GlassPanel
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.6 }}
+          className="mt-12 text-left"
+        >
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <input
+              type="text"
+              name="name"
+              required
+              placeholder={t('contact.namePlaceholder')}
+              className="rounded-lg border border-white/10 bg-bg-glass px-4 py-3 font-body text-text-primary placeholder-text-secondary backdrop-blur-sm transition-colors focus:border-neon-cyan focus:outline-none"
+            />
+            <input
+              type="email"
+              name="email"
+              required
+              placeholder={t('contact.emailPlaceholder')}
+              className="rounded-lg border border-white/10 bg-bg-glass px-4 py-3 font-body text-text-primary placeholder-text-secondary backdrop-blur-sm transition-colors focus:border-neon-cyan focus:outline-none"
+            />
+            <textarea
+              name="message"
+              required
+              rows={5}
+              placeholder={t('contact.messagePlaceholder')}
+              className="resize-none rounded-lg border border-white/10 bg-bg-glass px-4 py-3 font-body text-text-primary placeholder-text-secondary backdrop-blur-sm transition-colors focus:border-neon-cyan focus:outline-none"
+            />
+
+            <button
+              type="submit"
+              disabled={status === 'loading'}
+              className="flex items-center justify-center gap-2 rounded-lg border border-neon-cyan/50 bg-neon-cyan/10 px-6 py-3 font-heading font-semibold text-neon-cyan transition-all hover:bg-neon-cyan/20 hover:shadow-[0_0_20px_rgba(0,240,255,0.3)] disabled:opacity-50"
+            >
+              {status === 'loading' ? (
+                <svg
+                  className="h-5 w-5 animate-spin"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  />
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                  />
+                </svg>
+              ) : (
+                t('contact.send')
+              )}
+            </button>
+
+            {status === 'success' && (
+              <p className="text-sm text-neon-green">{t('contact.success')}</p>
+            )}
+            {status === 'error' && (
+              <p className="text-sm text-red-400">{t('contact.error')}</p>
+            )}
+          </form>
+        </GlassPanel>
       </div>
     </section>
   );
