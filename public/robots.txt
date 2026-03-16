@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://claudiociccarone.com/my-portfolio/sitemap.xml

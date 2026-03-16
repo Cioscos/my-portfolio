@@ -8,6 +8,7 @@ export default function About() {
   const { t } = useTranslation();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.3 });
+  const highlights = t('about.highlights', { returnObjects: true }) as string[];
 
   return (
     <section id="about" className="px-6 py-24">
@@ -33,15 +34,39 @@ export default function About() {
           </div>
 
           <div>
-            <p className="mb-4 text-lg leading-relaxed text-text-secondary">
-              {t('about.bio')}
-            </p>
+            {t('about.bio')
+              .split('\n\n')
+              .map((paragraph, i) => (
+                <p
+                  key={i}
+                  className="mb-4 text-lg leading-relaxed text-text-secondary"
+                >
+                  {paragraph}
+                </p>
+              ))}
             <p className="flex items-center gap-2 text-sm text-text-secondary">
               <HiLocationMarker className="text-neon-magenta" />
               {t('about.location')}
             </p>
           </div>
         </GlassPanel>
+
+        {/* Highlight badges */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="mt-8 flex flex-wrap justify-center gap-3"
+        >
+          {highlights.map((label, i) => (
+            <span
+              key={i}
+              className="rounded-full border border-white/10 bg-bg-glass px-4 py-2 text-sm font-medium text-neon-cyan backdrop-blur-sm"
+            >
+              {label}
+            </span>
+          ))}
+        </motion.div>
       </div>
     </section>
   );
