@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeHighlight from 'rehype-highlight';
+import rehypeSanitize, { defaultSchema } from 'rehype-sanitize';
 import { FaArrowLeft, FaClock, FaCalendarAlt } from 'react-icons/fa';
 import { getPostBySlug } from '../utils/blogLoader';
 
@@ -76,7 +77,29 @@ export default function BlogPostPage() {
         </header>
 
         <div className="prose-custom">
-          <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeHighlight]}>
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            rehypePlugins={[
+              rehypeHighlight,
+              [
+                rehypeSanitize,
+                {
+                  ...defaultSchema,
+                  attributes: {
+                    ...defaultSchema.attributes,
+                    code: [
+                      ...(defaultSchema.attributes?.code ?? []),
+                      ['className', /^language-./],
+                    ],
+                    span: [
+                      ...(defaultSchema.attributes?.span ?? []),
+                      ['className', /^hljs/],
+                    ],
+                  },
+                },
+              ],
+            ]}
+          >
             {post.content}
           </ReactMarkdown>
         </div>
