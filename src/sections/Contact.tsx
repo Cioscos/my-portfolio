@@ -108,6 +108,7 @@ export default function Contact() {
               type="text"
               name="name"
               required
+              maxLength={100}
               placeholder={t('contact.namePlaceholder')}
               className="rounded-lg border border-white/10 bg-bg-glass px-4 py-3 font-body text-text-primary placeholder-text-secondary backdrop-blur-sm transition-colors focus:border-neon-cyan focus:outline-none"
             />
@@ -115,6 +116,7 @@ export default function Contact() {
               type="email"
               name="email"
               required
+              maxLength={254}
               placeholder={t('contact.emailPlaceholder')}
               className="rounded-lg border border-white/10 bg-bg-glass px-4 py-3 font-body text-text-primary placeholder-text-secondary backdrop-blur-sm transition-colors focus:border-neon-cyan focus:outline-none"
             />
@@ -122,6 +124,8 @@ export default function Contact() {
               name="message"
               required
               rows={5}
+              minLength={10}
+              maxLength={2000}
               placeholder={t('contact.messagePlaceholder')}
               className="resize-none rounded-lg border border-white/10 bg-bg-glass px-4 py-3 font-body text-text-primary placeholder-text-secondary backdrop-blur-sm transition-colors focus:border-neon-cyan focus:outline-none"
             />
