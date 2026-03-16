@@ -20,15 +20,30 @@ No test framework is configured. Deploy happens automatically via GitHub Actions
 
 ## Architecture
 
-**Single-page app** — `App.tsx` renders `ParticleBackground`, a fixed `Navbar`, six section components in order (Hero → About → Projects → Skills → Experience → Contact), and a `Footer`. Navigation is scroll-to-section via `react-scroll`, not a router.
+**Single-page app** — `App.tsx` renders `ParticleBackground`, a fixed `Navbar`, six section components in order (Hero → About → Projects → Skills → Experience → Contact), and a `Footer`. Navigation is scroll-to-section via `react-scroll`, not a router. App includes a skip-to-content link and syncs `document.documentElement.lang` with the active i18n language.
 
 **Key patterns:**
 - **Sections** (`src/sections/`) are full-page blocks; **components** (`src/components/`) are reusable UI pieces (Navbar, Footer, GlassPanel, LanguageSwitcher, ParticleBackground)
 - **Particle background** (`src/components/ParticleBackground.tsx`) — vanilla Canvas API animation (zero dependencies) rendering a connected particle network behind all content. Uses neon-cyan/magenta/green colors, mouse repulsion on desktop, responsive particle count (60/30/15), `prefers-reduced-motion` support, and visibility-based pausing. Layered at `z-0` fixed; GlassPanel `backdrop-blur` naturally frosts the particles behind panels
+- **Contact form** (`src/sections/Contact.tsx`) — POST to Formspree with loading/success/error states. Social links above, form in a GlassPanel below
+- **About section** (`src/sections/About.tsx`) — multi-paragraph bio (split on `\n\n` from i18n) with highlight badges rendered as neon-cyan chips
+- **Hero section** (`src/sections/Hero.tsx`) — typing animation, CTA button, and outline-style Download CV button linking to `public/cv/Claudio_Ciccarone_CV.pdf`
 - **GitHub repos** are fetched live from the GitHub API in `src/hooks/useGitHubRepos.ts` — the Projects section displays them with language filtering
 - **i18n** uses `react-i18next` with bundled JSON translations (`src/i18n/it.json`, `src/i18n/en.json`). Italian is the fallback language. All user-facing strings must exist in both translation files
 - **Animations** use the `motion` package (Framer Motion v12+). Sections animate on viewport entry
 - **Styling** uses Tailwind CSS v4 via `@tailwindcss/vite` plugin. Custom theme tokens (colors, fonts) are defined in `src/index.css` under `@theme`
+
+## Accessibility
+
+- Skip-to-content link as first focusable element in `App.tsx`
+- `*:focus-visible` global outline (`neon-cyan`, 2px, offset 2px) in `index.css`
+- Navbar: `aria-expanded`, `aria-controls="mobile-menu"` on hamburger button; Escape key closes mobile menu
+
+## SEO
+
+- `public/robots.txt` and `public/sitemap.xml` — canonical URL: `https://claudiociccarone.com/my-portfolio/`
+- `index.html` includes canonical link, Open Graph (`og:title`, `og:description`, `og:type`, `og:url`, `og:image`) and Twitter Card meta tags
+- OG image expected at `public/og-image.jpg` (1200×630px)
 
 ## Design Tokens (defined in `src/index.css`)
 

@@ -1,15 +1,19 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-scroll';
+import { Link as ScrollLink } from 'react-scroll';
+import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
 import { HiMenuAlt3, HiX } from 'react-icons/hi';
 import LanguageSwitcher from './LanguageSwitcher';
 
-const NAV_ITEMS = ['about', 'projects', 'skills', 'experience', 'contact'] as const;
+const NAV_ITEMS = ['about', 'projects', 'github-stats', 'skills', 'experience', 'blog', 'contact'] as const;
 
 export default function Navbar() {
   const { t } = useTranslation();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const isHome = location.pathname === '/';
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -25,6 +29,50 @@ export default function Navbar() {
     return () => document.removeEventListener('keydown', onKeyDown);
   }, []);
 
+  const handleNavClick = useCallback(
+    (section: string) => {
+      setMenuOpen(false);
+      if (!isHome) {
+        navigate('/', { state: { scrollTo: section } });
+      }
+    },
+    [isHome, navigate],
+  );
+
+  const renderNavItem = (item: string, mobile: boolean) => {
+    const className = mobile
+      ? 'cursor-pointer text-lg text-text-secondary transition-colors hover:text-neon-cyan'
+      : 'cursor-pointer text-sm text-text-secondary transition-colors hover:text-neon-cyan';
+
+    if (isHome) {
+      return (
+        <ScrollLink
+          key={item}
+          to={item}
+          spy
+          smooth
+          offset={-80}
+          duration={500}
+          className={className}
+          activeClass="!text-neon-cyan"
+          onClick={() => setMenuOpen(false)}
+        >
+          {t(`nav.${item}`)}
+        </ScrollLink>
+      );
+    }
+
+    return (
+      <button
+        key={item}
+        onClick={() => handleNavClick(item)}
+        className={className}
+      >
+        {t(`nav.${item}`)}
+      </button>
+    );
+  };
+
   return (
     <nav
       className={`fixed top-0 z-50 w-full border-b transition-all duration-300 ${
@@ -34,29 +82,16 @@ export default function Navbar() {
       }`}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <a
-          href="#"
+        <RouterLink
+          to="/"
           className="font-heading text-xl font-bold text-neon-cyan"
         >
           CC
-        </a>
+        </RouterLink>
 
         {/* Desktop */}
         <div className="hidden items-center gap-8 md:flex">
-          {NAV_ITEMS.map((item) => (
-            <Link
-              key={item}
-              to={item}
-              spy
-              smooth
-              offset={-80}
-              duration={500}
-              className="cursor-pointer text-sm text-text-secondary transition-colors hover:text-neon-cyan"
-              activeClass="!text-neon-cyan"
-            >
-              {t(`nav.${item}`)}
-            </Link>
-          ))}
+          {NAV_ITEMS.map((item) => renderNavItem(item, false))}
           <LanguageSwitcher />
         </div>
 
@@ -75,21 +110,7 @@ export default function Navbar() {
       {/* Mobile menu */}
       {menuOpen && (
         <div id="mobile-menu" className="flex flex-col items-center gap-6 border-t border-white/10 bg-bg-glass px-6 py-8 backdrop-blur-xl md:hidden">
-          {NAV_ITEMS.map((item) => (
-            <Link
-              key={item}
-              to={item}
-              spy
-              smooth
-              offset={-80}
-              duration={500}
-              className="cursor-pointer text-lg text-text-secondary transition-colors hover:text-neon-cyan"
-              activeClass="!text-neon-cyan"
-              onClick={() => setMenuOpen(false)}
-            >
-              {t(`nav.${item}`)}
-            </Link>
-          ))}
+          {NAV_ITEMS.map((item) => renderNavItem(item, true))}
           <LanguageSwitcher />
         </div>
       )}

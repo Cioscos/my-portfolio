@@ -2,8 +2,10 @@
   "nav": {
     "about": "Chi Sono",
     "projects": "Progetti",
+    "github-stats": "GitHub Stats",
     "skills": "Competenze",
     "experience": "Esperienze",
+    "blog": "Blog",
     "contact": "Contatti"
   },
   "hero": {
@@ -35,6 +37,16 @@
     "loading": "Caricamento progetti...",
     "error": "Impossibile caricare i progetti. Riprova più tardi."
   },
+  "githubStats": {
+    "title": "GitHub Stats",
+    "repos": "Repository",
+    "stars": "Stelle",
+    "forks": "Fork",
+    "topLanguage": "Linguaggio Top",
+    "languages": "Linguaggi",
+    "loading": "Caricamento statistiche...",
+    "error": "Impossibile caricare le statistiche. Riprova più tardi."
+  },
   "skills": {
     "title": "Competenze",
     "categories": {
@@ -60,6 +72,13 @@
         "description": "Sviluppo su fork di DeepFaceLab, sperimentazione con tecnologie di deep learning e computer vision."
       }
     ]
+  },
+  "blog": {
+    "title": "Blog",
+    "readMore": "Leggi di più",
+    "readTime": "min di lettura",
+    "backToHome": "Torna al portfolio",
+    "noPosts": "Post non trovato."
   },
   "contact": {
     "title": "Contatti",
