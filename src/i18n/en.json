@@ -2,8 +2,10 @@
   "nav": {
     "about": "About",
     "projects": "Projects",
+    "github-stats": "GitHub Stats",
     "skills": "Skills",
     "experience": "Experience",
+    "blog": "Blog",
     "contact": "Contact"
   },
   "hero": {
@@ -35,6 +37,16 @@
     "loading": "Loading projects...",
     "error": "Unable to load projects. Please try again later."
   },
+  "githubStats": {
+    "title": "GitHub Stats",
+    "repos": "Repositories",
+    "stars": "Stars",
+    "forks": "Forks",
+    "topLanguage": "Top Language",
+    "languages": "Languages",
+    "loading": "Loading stats...",
+    "error": "Unable to load stats. Please try again later."
+  },
   "skills": {
     "title": "Skills",
     "categories": {
@@ -60,6 +72,13 @@
         "description": "Development on DeepFaceLab fork, experimentation with deep learning and computer vision technologies."
       }
     ]
+  },
+  "blog": {
+    "title": "Blog",
+    "readMore": "Read more",
+    "readTime": "min read",
+    "backToHome": "Back to portfolio",
+    "noPosts": "Post not found."
   },
   "contact": {
     "title": "Contact",
