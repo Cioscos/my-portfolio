@@ -6,7 +6,36 @@ import remarkGfm from 'remark-gfm';
 import rehypeHighlight from 'rehype-highlight';
 import rehypeSanitize, { defaultSchema } from 'rehype-sanitize';
 import { FaArrowLeft, FaClock, FaCalendarAlt } from 'react-icons/fa';
+import type { Components } from 'react-markdown';
 import { getPostBySlug } from '../utils/blogLoader';
+import { processFootnotes } from '../utils/footnotes';
+
+const markdownComponents: Components = {
+  a({ href, children, ...props }) {
+    const text = String(children);
+    const footnoteMatch = text.match(/^\^(\d+)\^$/);
+    if (footnoteMatch) {
+      return (
+        <sup>
+          <a
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="footnote-ref"
+            {...props}
+          >
+            {footnoteMatch[1]}
+          </a>
+        </sup>
+      );
+    }
+    return (
+      <a href={href} {...props}>
+        {children}
+      </a>
+    );
+  },
+};
 
 export default function BlogPostPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -85,6 +114,7 @@ export default function BlogPostPage() {
                 rehypeSanitize,
                 {
                   ...defaultSchema,
+                  tagNames: [...(defaultSchema.tagNames ?? []), 'sup'],
                   attributes: {
                     ...defaultSchema.attributes,
                     code: [
@@ -99,8 +129,9 @@ export default function BlogPostPage() {
                 },
               ],
             ]}
+            components={markdownComponents}
           >
-            {post.content}
+            {processFootnotes(post.content)}
           </ReactMarkdown>
         </div>
       </article>
