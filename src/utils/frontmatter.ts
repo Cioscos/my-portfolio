@@ -7,7 +7,9 @@ export interface BlogFrontMatter {
 }
 
 export function parseFrontmatter(raw: string): { data: BlogFrontMatter; content: string } {
-  const match = raw.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+  // Normalize CRLF → LF so the regex works regardless of line endings
+  const normalized = raw.replace(/\r\n/g, '\n');
+  const match = normalized.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
   if (!match) {
     return {
       data: { title: '', date: '', excerpt: '', tags: [], readTime: 0 },
