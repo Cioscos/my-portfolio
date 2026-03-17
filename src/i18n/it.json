@@ -80,7 +80,9 @@
     "readMore": "Leggi di più",
     "readTime": "min di lettura",
     "backToHome": "Torna al portfolio",
-    "noPosts": "Post non trovato."
+    "noPosts": "Post non trovato.",
+    "loading": "Caricamento post...",
+    "error": "Impossibile caricare i post del blog. Riprova più tardi."
   },
   "contact": {
     "title": "Contatti",

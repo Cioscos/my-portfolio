@@ -7,39 +7,61 @@ export interface BlogPost {
   content: string;
 }
 
-const modules = import.meta.glob('/src/content/blog/*.md', {
-  query: '?raw',
-  import: 'default',
-  eager: true,
-}) as Record<string, string>;
+export interface BlogIndexEntry {
+  slug: string;
+  lang: string;
+  title: string;
+  date: string;
+  excerpt: string;
+  tags: string[];
+  readTime: number;
+}
 
-function loadPosts(): BlogPost[] {
-  const posts: BlogPost[] = [];
+const BLOG_BASE_URL =
+  'https://raw.githubusercontent.com/Cioscos/blog-content/main';
 
-  for (const [path, raw] of Object.entries(modules)) {
-    // Pattern: /src/content/blog/{slug}.{lang}.md
-    const filename = path.split('/').pop()!.replace('.md', '');
-    const lastDot = filename.lastIndexOf('.');
-    if (lastDot === -1) continue;
+const indexCache = new Map<string, BlogIndexEntry[]>();
+const postCache = new Map<string, BlogPost>();
 
-    const slug = filename.slice(0, lastDot);
-    const lang = filename.slice(lastDot + 1);
-    const { data, content } = parseFrontmatter(raw);
+export async function fetchBlogIndex(lang: string): Promise<BlogIndexEntry[]> {
+  if (indexCache.has(lang)) return indexCache.get(lang)!;
 
-    posts.push({ slug, lang, frontmatter: data, content });
+  const res = await fetch(`${BLOG_BASE_URL}/index.json`);
+  if (!res.ok) throw new Error(`Failed to fetch blog index: ${res.status}`);
+
+  const entries: BlogIndexEntry[] = await res.json();
+  const allLangs = new Map<string, BlogIndexEntry[]>();
+
+  for (const entry of entries) {
+    const list = allLangs.get(entry.lang) ?? [];
+    list.push(entry);
+    allLangs.set(entry.lang, list);
   }
 
-  return posts;
+  for (const [l, list] of allLangs) {
+    list.sort(
+      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+    );
+    indexCache.set(l, list);
+  }
+
+  return indexCache.get(lang) ?? [];
 }
 
-const allPosts = loadPosts();
+export async function fetchBlogPost(
+  slug: string,
+  lang: string,
+): Promise<BlogPost | null> {
+  const key = `${slug}:${lang}`;
+  if (postCache.has(key)) return postCache.get(key)!;
 
-export function getAllPosts(lang: string): BlogPost[] {
-  return allPosts
-    .filter((p) => p.lang === lang)
-    .sort((a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime());
-}
+  const res = await fetch(`${BLOG_BASE_URL}/posts/${slug}.${lang}.md`);
+  if (!res.ok) return null;
 
-export function getPostBySlug(slug: string, lang: string): BlogPost | undefined {
-  return allPosts.find((p) => p.slug === slug && p.lang === lang);
+  const raw = await res.text();
+  const { data, content } = parseFrontmatter(raw);
+  const post: BlogPost = { slug, lang, frontmatter: data, content };
+
+  postCache.set(key, post);
+  return post;
 }
