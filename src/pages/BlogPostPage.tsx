@@ -70,6 +70,10 @@ export default function BlogPostPage() {
   const { post, loading, error } = useBlogPost(slug, lang);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     if (post) {
       document.title = `${post.frontmatter.title} | Claudio Ciccarone`;
     }
