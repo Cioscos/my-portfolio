@@ -39,6 +39,14 @@ No test framework is configured. Deploy happens automatically via GitHub Actions
 - `*:focus-visible` global outline (`neon-cyan`, 2px, offset 2px) in `index.css`
 - Navbar: `aria-expanded`, `aria-controls="mobile-menu"` on hamburger button; Escape key closes mobile menu
 
+## Security
+
+- **CSP** — `Content-Security-Policy` meta tag in `index.html` restricts sources: scripts to `'self'`, styles to `'self'`/`'unsafe-inline'`/Google Fonts, connections to GitHub API & Formspree, no frames/objects. Also includes `X-Content-Type-Options: nosniff` and `Referrer-Policy: strict-origin-when-cross-origin`
+- **Markdown sanitization** — `rehype-sanitize` in `BlogPostPage.tsx` strips raw HTML/script tags from blog markdown. Custom schema allows `language-*` and `hljs*` classes for syntax highlighting
+- **GitHub Actions pinned to SHAs** — `.github/workflows/deploy.yml` uses full commit SHAs (not version tags) to prevent supply chain attacks. When updating actions, look up the new SHA and keep the `# vN` comment
+- **Contact form constraints** — client-side `maxLength`/`minLength` on name (100), email (254), message (10–2000)
+- `escapeValue: false` in i18next config is intentional — React/JSX already escapes output
+
 ## SEO
 
 - `public/robots.txt` and `public/sitemap.xml` — canonical URL: `https://claudiociccarone.com/my-portfolio/`
