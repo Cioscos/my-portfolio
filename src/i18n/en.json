@@ -35,7 +35,9 @@
     "stars": "stars",
     "viewRepo": "View on GitHub",
     "loading": "Loading projects...",
-    "error": "Unable to load projects. Please try again later."
+    "error": "Unable to load projects. Please try again later.",
+    "prevPage": "Previous page",
+    "nextPage": "Next page"
   },
   "githubStats": {
     "title": "GitHub Stats",
