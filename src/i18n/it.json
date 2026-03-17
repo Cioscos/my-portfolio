@@ -35,7 +35,9 @@
     "stars": "stelle",
     "viewRepo": "Vedi su GitHub",
     "loading": "Caricamento progetti...",
-    "error": "Impossibile caricare i progetti. Riprova più tardi."
+    "error": "Impossibile caricare i progetti. Riprova più tardi.",
+    "prevPage": "Pagina precedente",
+    "nextPage": "Pagina successiva"
   },
   "githubStats": {
     "title": "GitHub Stats",
