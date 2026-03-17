@@ -7,8 +7,8 @@ import rehypeHighlight from 'rehype-highlight';
 import rehypeSanitize, { defaultSchema } from 'rehype-sanitize';
 import { FaArrowLeft, FaClock, FaCalendarAlt } from 'react-icons/fa';
 import type { Components } from 'react-markdown';
-import { getPostBySlug } from '../utils/blogLoader';
 import { processFootnotes } from '../utils/footnotes';
+import useBlogPost from '../hooks/useBlogPost';
 
 const markdownComponents: Components = {
   a({ href, children, ...props }) {
@@ -37,11 +37,37 @@ const markdownComponents: Components = {
   },
 };
 
+function PostSkeleton() {
+  return (
+    <div className="px-6 py-24">
+      <div className="mx-auto max-w-3xl animate-pulse">
+        <div className="mb-8 h-4 w-32 rounded bg-white/5" />
+        <div className="mb-4 h-9 w-3/4 rounded bg-white/5" />
+        <div className="mb-4 flex gap-4">
+          <div className="h-4 w-24 rounded bg-white/5" />
+          <div className="h-4 w-24 rounded bg-white/5" />
+        </div>
+        <div className="mb-8 flex gap-2">
+          <div className="h-5 w-16 rounded-md bg-white/5" />
+          <div className="h-5 w-16 rounded-md bg-white/5" />
+        </div>
+        <div className="space-y-3">
+          <div className="h-4 w-full rounded bg-white/5" />
+          <div className="h-4 w-full rounded bg-white/5" />
+          <div className="h-4 w-5/6 rounded bg-white/5" />
+          <div className="h-4 w-full rounded bg-white/5" />
+          <div className="h-4 w-4/6 rounded bg-white/5" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function BlogPostPage() {
   const { slug } = useParams<{ slug: string }>();
   const { t, i18n } = useTranslation();
   const lang = i18n.language === 'it' ? 'it' : 'en';
-  const post = slug ? getPostBySlug(slug, lang) : undefined;
+  const { post, loading, error } = useBlogPost(slug, lang);
 
   useEffect(() => {
     if (post) {
@@ -51,6 +77,22 @@ export default function BlogPostPage() {
       document.title = 'Claudio Ciccarone | Portfolio';
     };
   }, [post]);
+
+  if (loading) return <PostSkeleton />;
+
+  if (error) {
+    return (
+      <div className="flex min-h-[60vh] flex-col items-center justify-center px-6">
+        <p className="mb-4 text-lg text-text-secondary">{t('blog.error')}</p>
+        <Link
+          to="/"
+          className="text-neon-cyan transition-colors hover:text-neon-magenta"
+        >
+          {t('blog.backToHome')}
+        </Link>
+      </div>
+    );
+  }
 
   if (!post) {
     return (

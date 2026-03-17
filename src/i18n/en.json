@@ -80,7 +80,9 @@
     "readMore": "Read more",
     "readTime": "min read",
     "backToHome": "Back to portfolio",
-    "noPosts": "Post not found."
+    "noPosts": "Post not found.",
+    "loading": "Loading posts...",
+    "error": "Unable to load blog posts. Please try again later."
   },
   "contact": {
     "title": "Contact",

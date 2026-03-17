@@ -29,6 +29,7 @@ No test framework is configured. Deploy happens automatically via GitHub Actions
 - **About section** (`src/sections/About.tsx`) — multi-paragraph bio (split on `\n\n` from i18n) with highlight badges rendered as neon-cyan chips
 - **Hero section** (`src/sections/Hero.tsx`) — typing animation, CTA button, and outline-style Download CV button linking to `public/cv/Claudio_Ciccarone_CV.pdf`
 - **GitHub repos** are fetched live from the GitHub API in `src/hooks/useGitHubRepos.ts` — the Projects section displays them with language filtering
+- **Blog** — content lives in a separate repo (`Cioscos/blog-content`) and is fetched at runtime from `raw.githubusercontent.com`. `useBlogIndex.ts` fetches `index.json` (post metadata), `useBlogPost.ts` fetches individual `.md` files. Both use in-memory caching via `blogLoader.ts`. Adding a new post only requires a commit to the blog-content repo — no portfolio rebuild needed
 - **i18n** uses `react-i18next` with bundled JSON translations (`src/i18n/it.json`, `src/i18n/en.json`). Italian is the fallback language. All user-facing strings must exist in both translation files
 - **Animations** use the `motion` package (Framer Motion v12+). Sections animate on viewport entry
 - **Styling** uses Tailwind CSS v4 via `@tailwindcss/vite` plugin. Custom theme tokens (colors, fonts) are defined in `src/index.css` under `@theme`
@@ -41,7 +42,7 @@ No test framework is configured. Deploy happens automatically via GitHub Actions
 
 ## Security
 
-- **CSP** — `Content-Security-Policy` meta tag in `index.html` restricts sources: scripts to `'self'`, styles to `'self'`/`'unsafe-inline'`/Google Fonts, connections to GitHub API & Formspree, no frames/objects. Also includes `X-Content-Type-Options: nosniff` and `Referrer-Policy: strict-origin-when-cross-origin`
+- **CSP** — `Content-Security-Policy` meta tag in `index.html` restricts sources: scripts to `'self'`, styles to `'self'`/`'unsafe-inline'`/Google Fonts, connections to GitHub API, Formspree & `raw.githubusercontent.com`, no frames/objects. Also includes `X-Content-Type-Options: nosniff` and `Referrer-Policy: strict-origin-when-cross-origin`
 - **Markdown sanitization** — `rehype-sanitize` in `BlogPostPage.tsx` strips raw HTML/script tags from blog markdown. Custom schema allows `language-*` and `hljs*` classes for syntax highlighting
 - **GitHub Actions pinned to SHAs** — `.github/workflows/deploy.yml` uses full commit SHAs (not version tags) to prevent supply chain attacks. When updating actions, look up the new SHA and keep the `# vN` comment
 - **Contact form constraints** — client-side `maxLength`/`minLength` on name (100), email (254), message (10–2000)
