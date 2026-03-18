@@ -115,6 +115,9 @@
     "start": "Premi Spazio o tocca per iniziare",
     "close": "Chiudi",
     "reducedMotion": "Le animazioni sono disabilitate per le preferenze di riduzione del movimento.",
-    "reducedMotionPlay": "Gioca comunque"
+    "reducedMotionPlay": "Gioca comunque",
+    "speed": "Velocità",
+    "newBest": "NUOVO RECORD!",
+    "doubleJump": "Doppio Salto!"
   }
 }

@@ -115,6 +115,9 @@
     "start": "Press Space or tap to start",
     "close": "Close",
     "reducedMotion": "Animation is disabled due to reduced motion preferences.",
-    "reducedMotionPlay": "Play anyway"
+    "reducedMotionPlay": "Play anyway",
+    "speed": "Speed",
+    "newBest": "NEW BEST!",
+    "doubleJump": "Double Jump!"
   }
 }
