@@ -98,5 +98,23 @@
   "footer": {
     "madeWith": "Fatto con",
     "by": "da Claudio Ciccarone"
+  },
+  "notFound": {
+    "title": "404",
+    "subtitle": "Pagina non trovata",
+    "backHome": "Torna alla Home"
+  },
+  "game": {
+    "ariaLabel": "Gioco Neon Runner",
+    "secretFound": "Hai trovato un segreto!",
+    "instructions": "Premi Spazio o tocca per iniziare",
+    "score": "Punti",
+    "highScore": "Record",
+    "gameOver": "Game Over",
+    "restart": "Premi Spazio o tocca per riprovare",
+    "start": "Premi Spazio o tocca per iniziare",
+    "close": "Chiudi",
+    "reducedMotion": "Le animazioni sono disabilitate per le preferenze di riduzione del movimento.",
+    "reducedMotionPlay": "Gioca comunque"
   }
 }

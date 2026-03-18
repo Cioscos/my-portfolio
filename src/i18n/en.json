@@ -98,5 +98,23 @@
   "footer": {
     "madeWith": "Made with",
     "by": "by Claudio Ciccarone"
+  },
+  "notFound": {
+    "title": "404",
+    "subtitle": "Page not found",
+    "backHome": "Back to Home"
+  },
+  "game": {
+    "ariaLabel": "Neon Runner game",
+    "secretFound": "You found a secret!",
+    "instructions": "Press Space or tap to start",
+    "score": "Score",
+    "highScore": "Best",
+    "gameOver": "Game Over",
+    "restart": "Press Space or tap to restart",
+    "start": "Press Space or tap to start",
+    "close": "Close",
+    "reducedMotion": "Animation is disabled due to reduced motion preferences.",
+    "reducedMotionPlay": "Play anyway"
   }
 }

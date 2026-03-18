@@ -33,6 +33,7 @@ No test framework is configured. Deploy happens automatically via GitHub Actions
 - **i18n** uses `react-i18next` with bundled JSON translations (`src/i18n/it.json`, `src/i18n/en.json`). Italian is the fallback language. All user-facing strings must exist in both translation files
 - **Animations** use the `motion` package (Framer Motion v12+). Sections animate on viewport entry
 - **Styling** uses Tailwind CSS v4 via `@tailwindcss/vite` plugin. Custom theme tokens (colors, fonts) are defined in `src/index.css` under `@theme`
+- **Easter egg: Neon Runner** — Chrome dino-style endless runner triggered by the Konami code (↑↑↓↓←→←→BA) anywhere on the site, or by visiting any non-existent URL (404 page). `useKonamiCode` hook (`src/hooks/useKonamiCode.ts`) detects the sequence via `e.key`; `Layout.tsx` wires it to `GameOverlay.tsx` (full-screen overlay with `AnimatePresence`). `NeonRunnerGame.tsx` is a canvas-based game following the same DPR-aware, `requestAnimationFrame`, `useRef`-for-mutable-state pattern as `ParticleBackground.tsx`. Player is neon-cyan stick figure, obstacles are neon-magenta shapes, score in neon-green. Supports jump (Space/ArrowUp/tap), duck (ArrowDown, desktop only), `prefers-reduced-motion` opt-in, `localStorage` high score, `ResizeObserver` responsive sizing. `NotFoundPage.tsx` renders the 404 page with the game embedded in a `GlassPanel`
 
 ## Accessibility
 
